@@ -1,15 +1,37 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    function accept(f) { if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected"); return f; }
+    var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+    var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+    var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+    var _, done = false;
+    for (var i = decorators.length - 1; i >= 0; i--) {
+        var context = {};
+        for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
+        for (var p in contextIn.access) context.access[p] = contextIn.access[p];
+        context.addInitializer = function (f) { if (done) throw new TypeError("Cannot add initializers after decoration has completed"); extraInitializers.push(accept(f || null)); };
+        var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+        if (kind === "accessor") {
+            if (result === void 0) continue;
+            if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+            if (_ = accept(result.get)) descriptor.get = _;
+            if (_ = accept(result.set)) descriptor.set = _;
+            if (_ = accept(result.init)) initializers.unshift(_);
+        }
+        else if (_ = accept(result)) {
+            if (kind === "field") initializers.unshift(_);
+            else descriptor[key] = _;
+        }
+    }
+    if (target) Object.defineProperty(target, contextIn.name, descriptor);
+    done = true;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
+var __runInitializers = (this && this.__runInitializers) || function (thisArg, initializers, value) {
+    var useValue = arguments.length > 2;
+    for (var i = 0; i < initializers.length; i++) {
+        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+    }
+    return useValue ? value : void 0;
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -43,28 +65,31 @@ function CParam(paramName) {
         Reflect.defineMetadata("paramIndex", parameterIndex, target, propertyKey);
     };
 }
-class UserController {
-    getUserByID(id, req, res) {
-        res.send(`Getiing user with ID: ${id}`);
-    }
-    createUser(req, res) {
-        const { name, email } = req.body;
-        res.send(`creating user with name: ${name} and Email: ${email}`);
-    }
-}
-__decorate([
-    CGet("/users/id"),
-    __param(0, CParam("id")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object, Object]),
-    __metadata("design:returntype", void 0)
-], UserController.prototype, "getUserByID", null);
-__decorate([
-    CPost("/users"),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
-    __metadata("design:returntype", void 0)
-], UserController.prototype, "createUser", null);
+let UserController = (() => {
+    var _a;
+    let _instanceExtraInitializers = [];
+    let _getUserByID_decorators;
+    let _createUser_decorators;
+    return _a = class UserController {
+            getUserByID(id, req, res) {
+                res.send(`Getiing user with ID: ${id}`);
+            }
+            createUser(req, res) {
+                const { name, email } = req.body;
+                res.send(`creating user with name: ${name} and Email: ${email}`);
+            }
+            constructor() {
+                __runInitializers(this, _instanceExtraInitializers);
+            }
+        },
+        (() => {
+            _getUserByID_decorators = [CGet("/users/id")];
+            _createUser_decorators = [CPost("/users")];
+            __esDecorate(_a, null, _getUserByID_decorators, { kind: "method", name: "getUserByID", static: false, private: false, access: { has: obj => "getUserByID" in obj, get: obj => obj.getUserByID } }, null, _instanceExtraInitializers);
+            __esDecorate(_a, null, _createUser_decorators, { kind: "method", name: "createUser", static: false, private: false, access: { has: obj => "createUser" in obj, get: obj => obj.createUser } }, null, _instanceExtraInitializers);
+        })(),
+        _a;
+})();
 //set up the express app
 const myApp = (0, express_1.default)();
 myApp.use(express_1.default.json());

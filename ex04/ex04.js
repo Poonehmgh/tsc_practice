@@ -11,4 +11,3 @@ const currentSys = {
 };
 console.log(currentSys);
 const path = require("path");
-console.log(path.basename);
