@@ -1,4 +1,5 @@
 "use strict";
+/******* synchronous methods        */
 // const fs = require("fs");
 // const first_ = fs.readFileSync("./content/text1.txt", "utf8");
 // or :

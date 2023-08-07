@@ -1,3 +1,5 @@
+
+/******* synchronous methods        */
 // const fs = require("fs");
 // const first_ = fs.readFileSync("./content/text1.txt", "utf8");
 // or :
@@ -10,3 +12,6 @@ console.log(first, " ", second);
 
 //overwrites the existing file. otherwise creates the file, if we add that flad, it will append the content
 writeFileSync("./content/result.txt", `yoooooooo ${first} and ${second}`, {flag: 'a'});
+
+
+
