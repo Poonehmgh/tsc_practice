@@ -54,10 +54,23 @@
 
 <div class="todo-list">
     <ul>
-        <% todos.forEach(todo => { %>
-        <li><%= todo.task %></li>
+        <% todos.forEach(todos => { %>
+        <li><%= todos.task %></li>
         <% }); %>
     </ul>
 </div>
 </body>
 </html>
+<ul>
+    <% todos.forEach(todos => { %>
+        <li>
+            <a href="/task/<%= todos.id %>"><%= todos.task %></a>
+            - <%= todos.done ? 'Done' : 'Not Done' %>
+            <input
+                    type="checkbox"
+                    <%= todos.done ? 'checked' : '' %>
+                    onchange="location.href='/complete/<%= todos.id %>'"
+            />
+        </li>
+    <% }); %>
+</ul>
