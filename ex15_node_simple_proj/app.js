@@ -1,9 +1,10 @@
 const http = require("http");
 const fs = require("fs");
-
+const path = require("path")
 const server = http.createServer((req, res) => {
     if (req.url === "/"){
-        fs.readFile("index.html", "utf8", (err, data) =>{
+        const ipath = path.join(__dirname, "index.html")
+        fs.readFile(ipath, "utf8", (err, data) =>{
             if (err)
             {
                 res.writeHead(500, {"content-type" : "text/plain"})
@@ -18,22 +19,23 @@ const server = http.createServer((req, res) => {
     }
     else if (req.url === "/about")
     {
-        fs.readFile("about.html", "utf8", (err, data) => {
+        a_path = path.join(__dirname, "about.html")
+        fs.readFile(a_path, "utf-8", (err, data) => {
             if (err)
             {
-                res.writeHead(500, {"content-type" : "text/plain"})
+                res.writeHead(500, {"Content-Type" : "text/plain"})
                 res.end("could not read about.html")
             }
             else
             {
-                res.writeHead(200, {"content-type" : "text/html"})
+                res.writeHead(200, {"Content-Type" : "text/html"})
                 res.end(data)
             }
         })
     }
     else
     {
-        res.writeHead(404, {"content-type":"text/plain"})
+        res.writeHead(404, {"Content-Type":"text/plain"})
         res.end("error! not found")
     }
 })
