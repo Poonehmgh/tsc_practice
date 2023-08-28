@@ -14,7 +14,7 @@ router.get("/", async(req, res) => {
 router.post("/", async (req, res) => {
     const jobs = await prisma.joblisting.create(
         {
-            data:req.body
+            data: req.body
         })
     res.json(jobs);
 })
